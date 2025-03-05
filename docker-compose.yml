@@ -8,6 +8,10 @@ services:
       - postgres
     environment:
       - DATABASE_URL=postgresql://postgres:password@postgres:5432/inventory-system
+    develop:
+      watch:
+        - action: rebuild
+          path: .
     networks:
       - backend
 
@@ -29,6 +33,3 @@ networks:
 
 volumes:
   postgres-data:
-
-
-
