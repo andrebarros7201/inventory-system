@@ -7,12 +7,12 @@ services:
     depends_on:
       - postgres
     environment:
-      - DATABASE_URL=postgresql://postgres:password@postgres:5432/inventory-system?schema=public
+      - DATABASE_URL=postgresql://postgres:password@postgres:5432/inventory-system
     networks:
       - backend
 
   postgres:
-    build: postgres:15
+    image: postgres:latest
     container_name: postgres-db
     environment:
       POSTGRES_PASSWORD: password
@@ -28,7 +28,7 @@ networks:
   backend:
 
 volumes:
-  postgresql-data:
+  postgres-data:
 
 
 
