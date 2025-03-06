@@ -36,7 +36,12 @@ const Login = () => {
           min={3}
           ref={passwordRef}
         />
-        <button className={"bg-blue-500 py-2 px-4 font-bold rounded"}>
+        <button
+          type={"submit"}
+          className={
+            "bg-blue-500 py-2 px-4 font-bold rounded hover:bg-blue-600 cursor-pointer duration-300 transition-all"
+          }
+        >
           Log In
         </button>
       </form>
