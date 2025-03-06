@@ -19,7 +19,7 @@ const Input = forwardRef<HTMLInputElement, Props>(
         </label>
         <input
           className={
-            "w-full flex flex-col gap-4 text-lg border-1 border-blue-500 rounded p-2 bg-white text-blue-500 caret-blue-500 focus:outline-none focus:shadow"
+            "w-full flex flex-col gap-4 text-lg border-4 border-transparent duration-200 ease-in-out transition-all focus:border-blue-500 rounded p-2 bg-white text-blue-500 caret-blue-500 focus:outline-none focus:shadow"
           }
           ref={ref}
           type={type}
