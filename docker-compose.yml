@@ -10,8 +10,11 @@ services:
       - DATABASE_URL=postgresql://postgres:password@postgres:5432/inventory-system
     develop:
       watch:
+        - action: sync
+          target: /app
+          path: ./
         - action: rebuild
-          path: .
+          path: ./package.json
     networks:
       - backend
 
