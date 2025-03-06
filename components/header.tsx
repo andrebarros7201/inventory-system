@@ -1,3 +1,4 @@
+import HeaderLink from "@/components/ui/header-link";
 import Link from "next/link";
 
 const Header = () => {
@@ -9,7 +10,10 @@ const Header = () => {
             <h2 className={"font-bold text-2xl h-full"}>Inventory System</h2>
           </Link>
           <ul className={"h-full flex items-center justify-start"}>
-            <Link href={"/login"}>Login</Link>
+            <HeaderLink label={"Log In"} path={"/login"} />
+          </ul>
+          <ul className={"h-full flex items-center justify-start"}>
+            <HeaderLink label={"Sign up"} path={"/signup"} />
           </ul>
         </nav>
       </div>
