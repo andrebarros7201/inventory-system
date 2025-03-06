@@ -13,6 +13,8 @@ services:
         - action: sync
           target: /app
           path: ./
+          ignore:
+            - ./node_modules
         - action: rebuild
           path: ./package.json
     networks:
