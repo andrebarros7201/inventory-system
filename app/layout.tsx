@@ -30,7 +30,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col items-center box-border`}
       >
         <Header />
-        <div className="w-full max-w-[1000px] flex flex-col flex-1 border-2 border-red-500 box-border">
+        <div className="w-full max-w-[1000px] flex flex-col flex-1 box-border">
           {children}
         </div>
         <Footer />
