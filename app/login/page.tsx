@@ -30,7 +30,7 @@ const Login = () => {
           label={"password"}
           placeholder={""}
           id={"password"}
-          type={"text"}
+          type={"password"}
           required={true}
           max={50}
           min={3}
