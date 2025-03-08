@@ -1,13 +1,37 @@
 "use client";
 import { FormEvent, useRef } from "react";
 import Input from "@/components/ui/input";
+import { useRouter } from "next/navigation";
 
 const Login = () => {
   const usernameRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
+  const router = useRouter();
 
-  function handleSubmit(e: FormEvent) {
+  async function handleSubmit(e: FormEvent) {
     e.preventDefault();
+    try {
+      const response = await fetch("/api/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username: usernameRef.current!.value,
+          password: passwordRef.current!.value,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message);
+      }
+
+      router.push("/store");
+    } catch (error) {
+      console.error(error);
+    }
   }
   return (
     <main className="w-full max-w-md flex flex-col items-center p-4 gap-4 bg-gray-700 rounded">
