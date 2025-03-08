@@ -1,10 +1,12 @@
 "use client";
 import { FormEvent, useRef } from "react";
 import Input from "@/components/ui/input";
+import { useRouter } from "next/navigation";
 
 const SignUp = () => {
   const usernameRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
+  const router = useRouter();
 
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
@@ -26,6 +28,9 @@ const SignUp = () => {
         if (!response.ok) {
           throw new Error(data.message);
         }
+
+        //Redirect the user to the login page
+        router.push("/login");
       } catch (error) {
         console.error(error);
       }
