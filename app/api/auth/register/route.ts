@@ -1,27 +1,32 @@
 import { NextResponse } from "next/server";
-import hashPassword from "@/utils/hashPassword";
 import { prisma } from "@/utils/prisma";
+import hashPassword from "@/utils/hashPassword";
 
 export async function POST(req: Request) {
-  const { username, password } = await req.json();
-  const user = await prisma.user.findUnique({ where: { username: username } });
-  if (user) {
-    NextResponse.json({ message: "User already exists!" }, { status: 409 });
-  }
-  if (!user) {
+  try {
+    const { username, password } = await req.json();
+
+    const user = await prisma.user.findUnique({ where: { username } });
+    if (user) {
+      return NextResponse.json(
+        { message: "User already exists" },
+        { status: 409 },
+      );
+    }
+
     const hashedPassword = await hashPassword(password);
     await prisma.user.create({
-      data: {
-        username: username,
-        password: hashedPassword,
-      },
+      data: { username, password: hashedPassword },
     });
 
     return NextResponse.json(
-      { message: "User crated successfully." },
+      { message: "User created successfully" },
       { status: 201 },
     );
+  } catch (error) {
+    return NextResponse.json(
+      { message: `Server error: ${error}` },
+      { status: 500 },
+    );
   }
-
-  return NextResponse.json({ message: "An error occurred." }, { status: 500 });
 }
