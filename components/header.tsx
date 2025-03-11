@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 import { UserActions } from "@/redux/slicers/userSlice";
+import { NotificationActions } from "@/redux/slicers/notificationSlice";
 import { useRouter } from "next/navigation";
 
 const Header = () => {
@@ -12,6 +13,12 @@ const Header = () => {
   const router = useRouter();
   function handleLogOut() {
     dispatch(UserActions.logOut());
+    dispatch(
+      NotificationActions.createNotification({
+        type: "success",
+        message: "Logged out",
+      }),
+    );
     router.push("/");
   }
   return (
