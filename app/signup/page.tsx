@@ -34,6 +34,12 @@ const SignUp = () => {
 
         //Redirect the user to the login page
         router.push("/login");
+        dispatch(
+          NotificationActions.createNotification({
+            type: "success",
+            message: "Account Created Successfully",
+          }),
+        );
       } catch (error) {
         if (error instanceof Error) {
           dispatch(
