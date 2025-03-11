@@ -16,13 +16,13 @@ const Notification = () => {
 
   return (
     isVisible && (
-      <div className={"w-full flex justify-center bg-transparent"}>
-        <div
-          className={`${type === "success" ? "bg-green-600" : type === "error" ? "bg-red-600" : ""} text-white p-4 flex items-center`}
-        >
-          <p>{message}</p>
-          <button onClick={handleClose}>Close</button>
-        </div>
+      <div
+        className={`${type === "success" ? "bg-green-600" : type === "error" ? "bg-red-600" : ""} text-xl text-white flex items-center rounded p-4 fixed top-6 gap-8 shadow-black shadow-2xl`}
+      >
+        <p className={"font-bold"}>{message}</p>
+        <button className={"cursor-pointer"} onClick={handleClose}>
+          X
+        </button>
       </div>
     )
   );
