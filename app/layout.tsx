@@ -4,6 +4,7 @@ import "./globals.css";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
 import ReduxProvider from "@/components/redux-provider";
+import Notification from "@/components/notification";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -27,15 +28,18 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col items-center box-border`}
-      >
-        <Header />
-        <div className="w-full max-w-[1000px] flex flex-col flex-1 items-center box-border pt-4">
-          <ReduxProvider>{children}</ReduxProvider>
-        </div>
-        <Footer />
-      </body>
+      <ReduxProvider>
+        <body
+          className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col items-center box-border`}
+        >
+          <Header />
+          <Notification />
+          <div className="w-full max-w-[1000px] flex flex-col flex-1 items-center box-border pt-4">
+            {children}
+          </div>
+          <Footer />
+        </body>
+      </ReduxProvider>
     </html>
   );
 }

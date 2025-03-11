@@ -20,9 +20,10 @@ const notificationSlice = createSlice({
     },
     toggleVisible(state) {
       state.isVisible = !state.isVisible;
+      state.notification = { type: "", message: "" };
     },
   },
 });
 
 export default notificationSlice.reducer;
-export const notificationActions = notificationSlice.actions;
+export const NotificationActions = notificationSlice.actions;

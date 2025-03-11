@@ -2,11 +2,14 @@
 import { FormEvent, useRef } from "react";
 import Input from "@/components/ui/input";
 import { useRouter } from "next/navigation";
+import { NotificationActions } from "@/redux/slicers/notificationSlice";
+import { useDispatch } from "react-redux";
 
 const SignUp = () => {
   const usernameRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
+  const dispatch = useDispatch();
 
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
@@ -32,7 +35,12 @@ const SignUp = () => {
         //Redirect the user to the login page
         router.push("/login");
       } catch (error) {
-        console.error(error);
+        dispatch(
+          NotificationActions.createNotification({
+            type: "error",
+            message: error.message,
+          }),
+        );
       }
     }
   }
