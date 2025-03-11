@@ -31,7 +31,12 @@ const Login = () => {
       if (!response.ok) {
         throw new Error(data.message);
       }
-      dispatch(UserActions.logIn(data.user));
+      dispatch(
+        UserActions.logIn({
+          username: data.user.username,
+          userID: data.user.id,
+        }),
+      );
       dispatch(
         NotificationActions.createNotification({
           type: "success",

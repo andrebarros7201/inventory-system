@@ -1,7 +1,12 @@
+"use client";
+import { useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
+
 const Store = () => {
+  const { user } = useSelector((state: RootState) => state.user);
   return (
     <div>
-      <h2>Store</h2>
+      <h2>Welcome, {user!.username}</h2>
     </div>
   );
 };

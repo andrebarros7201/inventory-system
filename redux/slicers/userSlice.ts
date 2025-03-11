@@ -1,6 +1,8 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import User from "@/types/IUser";
+import IUserSlice from "@/types/IUserSlice";
 
-const initialState = {
+const initialState: IUserSlice = {
   user: undefined,
   isLoggedIn: false,
 };
@@ -9,7 +11,7 @@ const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
-    logIn(state, action) {
+    logIn(state, action: PayloadAction<User>) {
       state.isLoggedIn = true;
       state.user = action.payload;
     },
