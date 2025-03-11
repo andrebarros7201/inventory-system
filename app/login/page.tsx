@@ -30,7 +30,12 @@ const Login = () => {
       if (!response.ok) {
         throw new Error(data.message);
       }
-
+      dispatch(
+        NotificationActions.createNotification({
+          type: "success",
+          message: "Logged In",
+        }),
+      );
       router.push("/store");
     } catch (error) {
       if (error instanceof Error) {
