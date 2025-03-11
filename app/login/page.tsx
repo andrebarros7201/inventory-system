@@ -33,14 +33,24 @@ const Login = () => {
 
       router.push("/store");
     } catch (error) {
-      dispatch(
-        NotificationActions.createNotification({
-          type: "error",
-          message: error.message,
-        }),
-      );
+      if (error instanceof Error) {
+        dispatch(
+          NotificationActions.createNotification({
+            type: "error",
+            message: error.message,
+          }),
+        );
+      } else {
+        dispatch(
+          NotificationActions.createNotification({
+            type: "error",
+            message: "An unknown error occurred",
+          }),
+        );
+      }
     }
   }
+
   return (
     <main className="w-full max-w-md flex flex-col items-center p-4 gap-4 bg-gray-700 rounded">
       <h2 className={"font-bold text-2xl w-full text-start"}>Log In</h2>

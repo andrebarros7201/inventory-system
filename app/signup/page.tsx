@@ -35,12 +35,21 @@ const SignUp = () => {
         //Redirect the user to the login page
         router.push("/login");
       } catch (error) {
-        dispatch(
-          NotificationActions.createNotification({
-            type: "error",
-            message: error.message,
-          }),
-        );
+        if (error instanceof Error) {
+          dispatch(
+            NotificationActions.createNotification({
+              type: "error",
+              message: error.message,
+            }),
+          );
+        } else {
+          dispatch(
+            NotificationActions.createNotification({
+              type: "error",
+              message: "An unknown error occurred",
+            }),
+          );
+        }
       }
     }
   }
