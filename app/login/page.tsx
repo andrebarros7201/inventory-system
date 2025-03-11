@@ -4,6 +4,7 @@ import Input from "@/components/ui/input";
 import { useRouter } from "next/navigation";
 import { useDispatch } from "react-redux";
 import { NotificationActions } from "@/redux/slicers/notificationSlice";
+import { UserActions } from "@/redux/slicers/userSlice";
 
 const Login = () => {
   const usernameRef = useRef<HTMLInputElement>(null);
@@ -30,6 +31,7 @@ const Login = () => {
       if (!response.ok) {
         throw new Error(data.message);
       }
+      dispatch(UserActions.logIn(data.user));
       dispatch(
         NotificationActions.createNotification({
           type: "success",

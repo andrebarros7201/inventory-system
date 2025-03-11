@@ -21,7 +21,7 @@ export async function POST(req: Request) {
   }
 
   return NextResponse.json(
-    { message: "Logged in successfully" },
+    { message: `Logged in successfully`, user },
     { status: 200 },
   );
 }
