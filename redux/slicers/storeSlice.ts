@@ -15,4 +15,4 @@ const storeSlice = createSlice({
 });
 
 export default storeSlice.reducer;
-export const storeActions = storeSlice.actions;
+export const StoreActions = storeSlice.actions;

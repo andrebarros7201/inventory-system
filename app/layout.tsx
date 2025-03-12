@@ -28,18 +28,18 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <ReduxProvider>
-        <body
-          className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col items-center box-border`}
-        >
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col items-center box-border`}
+      >
+        <ReduxProvider>
           <Header />
           <Notification />
           <div className="w-full max-w-[1000px] flex flex-col flex-1 items-center box-border pt-4">
             {children}
           </div>
           <Footer />
-        </body>
-      </ReduxProvider>
+        </ReduxProvider>
+      </body>
     </html>
   );
 }
