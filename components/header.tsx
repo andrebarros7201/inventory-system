@@ -12,6 +12,7 @@ const Header = () => {
   const dispatch = useDispatch();
   const router = useRouter();
   function handleLogOut() {
+    router.push("/");
     dispatch(UserActions.logOut());
     dispatch(
       NotificationActions.createNotification({
@@ -19,7 +20,6 @@ const Header = () => {
         message: "Logged out",
       }),
     );
-    router.push("/");
   }
   return (
     <header className="w-full flex flex-row justify-center bg-blue-500 p-4">

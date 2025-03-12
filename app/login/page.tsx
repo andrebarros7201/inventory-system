@@ -33,8 +33,8 @@ const Login = () => {
       }
       dispatch(
         UserActions.logIn({
+          userID: data.user.userID,
           username: data.user.username,
-          userID: data.user.id,
         }),
       );
       dispatch(
