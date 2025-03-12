@@ -15,10 +15,7 @@ export async function POST(req: Request) {
   const isPasswordCorrect = await comparePassword(password, user.password);
   if (!isPasswordCorrect) {
     return NextResponse.json(
-      {
-        message: "Incorrect username/password combination",
-        user: { username: user.username, userID: user.userID },
-      },
+      { message: "Incorrect username/password combination" },
       { status: 401 },
     );
   }
