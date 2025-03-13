@@ -1,4 +1,6 @@
 import Button from "@/components/ui/button";
+import { useDispatch } from "react-redux";
+import { NotificationActions } from "@/redux/slicers/notificationSlice";
 
 type Props = {
   store: { storeID: string; name: string; userID: string };
@@ -6,6 +8,33 @@ type Props = {
 };
 
 const DisplayStoresItem = ({ store, index }: Props) => {
+  const dispatch = useDispatch();
+  async function handleDelete(id: string) {
+    try {
+      const response = await fetch(`/api/store?storeID=${id}`, {
+        method: "DELETE",
+      });
+
+      if (!response.ok) {
+        throw new Error("Could not delete store");
+      }
+
+      dispatch(
+        NotificationActions.createNotification({
+          type: "success",
+          message: "Store deleted",
+        }),
+      );
+    } catch (error) {
+      dispatch(
+        NotificationActions.createNotification({
+          type: "error",
+          message: "Something went wrong",
+        }),
+      );
+    }
+  }
+
   return (
     <div
       className={
@@ -19,7 +48,13 @@ const DisplayStoresItem = ({ store, index }: Props) => {
       <div className={"flex gap-4 items-center"}>
         <Button label={"Open"} color={"blue"} type={"button"} bold />
         <Button label={"Edit"} color={"amber"} type={"button"} bold />
-        <Button label={"Delete"} color={"red"} type={"button"} bold />
+        <Button
+          label={"Delete"}
+          color={"red"}
+          type={"button"}
+          onClick={() => handleDelete(store.storeID)}
+          bold
+        />
       </div>
     </div>
   );

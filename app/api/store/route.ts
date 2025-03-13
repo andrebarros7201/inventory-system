@@ -39,3 +39,20 @@ export async function GET(req: NextRequest) {
     );
   }
 }
+
+export async function DELETE(req: NextRequest) {
+  try {
+    const storeID = req.nextUrl.searchParams.get("storeID");
+    if (!storeID) {
+      return NextResponse.json({ message: "Store not found" }, { status: 404 });
+    }
+
+    await prisma.store.delete({ where: { storeID } });
+    return NextResponse.json({ message: "Store deleted" }, { status: 200 });
+  } catch (error) {
+    return NextResponse.json(
+      { message: `Server error: ${error}` },
+      { status: 500 },
+    );
+  }
+}
