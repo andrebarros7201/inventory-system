@@ -67,8 +67,6 @@ const DisplayStoreItem = ({ store, index }: Props) => {
         throw new Error("Could not update store");
       }
 
-      dispatch(fetchStores(user.userID));
-
       dispatch(
         NotificationActions.createNotification({
           type: "success",
@@ -83,6 +81,8 @@ const DisplayStoreItem = ({ store, index }: Props) => {
           message: "Failed to update store",
         }),
       );
+    } finally {
+      dispatch(fetchStores(user.userID));
     }
   }
 
@@ -135,7 +135,7 @@ const DisplayStoreItem = ({ store, index }: Props) => {
                 "bg-blue-500 hover:bg-blue-600 rounded p-4 cursor-pointer transition-all duration-300"
               }
             >
-              Add Store
+              Update Store
             </button>
           </Form>
         </Modal>
