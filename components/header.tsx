@@ -6,6 +6,7 @@ import { RootState } from "@/redux/store";
 import { UserActions } from "@/redux/slicers/userSlice";
 import { NotificationActions } from "@/redux/slicers/notificationSlice";
 import { useRouter } from "next/navigation";
+import { StoreActions } from "@/redux/slicers/storeSlice";
 
 const Header = () => {
   const { isLoggedIn } = useSelector((state: RootState) => state.user);
@@ -20,6 +21,7 @@ const Header = () => {
         message: "Logged out",
       }),
     );
+    dispatch(StoreActions.clearStores());
   }
   return (
     <header className="w-full flex flex-row justify-center bg-blue-500 p-4">

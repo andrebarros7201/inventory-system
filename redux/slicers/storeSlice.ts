@@ -11,6 +11,9 @@ const storeSlice = createSlice({
     addStore: (state, action) => {
       state.stores = action.payload;
     },
+    clearStores: (state) => {
+      state.stores = [];
+    },
   },
 });
 
