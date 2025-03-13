@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux";
 import { NotificationActions } from "@/redux/slicers/notificationSlice";
 import { UserActions } from "@/redux/slicers/userSlice";
 import FormButton from "@/components/ui/formButton";
+import Form from "@/components/ui/form";
 
 const Login = () => {
   const usernameRef = useRef<HTMLInputElement>(null);
@@ -66,11 +67,7 @@ const Login = () => {
 
   return (
     <main className="w-full max-w-md flex flex-col items-center p-4 gap-4 bg-gray-700 rounded">
-      <h2 className={"font-bold text-2xl w-full text-start"}>Log In</h2>
-      <form
-        className={"w-full flex flex-col items-start gap-8"}
-        onSubmit={handleSubmit}
-      >
+      <Form title={"Login"} onSubmit={(e: FormEvent) => handleSubmit(e)}>
         <Input
           label={"username"}
           placeholder={""}
@@ -97,7 +94,7 @@ const Login = () => {
           type={"submit"}
           onClick={(e) => handleSubmit(e)}
         />
-      </form>
+      </Form>
     </main>
   );
 };
