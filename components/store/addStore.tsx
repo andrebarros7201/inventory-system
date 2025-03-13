@@ -6,6 +6,8 @@ import { AppDispatch, RootState } from "@/redux/store";
 import { NotificationActions } from "@/redux/slicers/notificationSlice";
 import { fetchStores } from "@/redux/slicers/storeSlice";
 import Button from "@/components/ui/button";
+import Modal from "@/components/ui/modal";
+import Form from "@/components/ui/form";
 
 const AddStore = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -55,48 +57,31 @@ const AddStore = () => {
       />
 
       {isOpen && (
-        <div
-          onClick={() => setIsOpen(false)}
-          className="h-dvw w-dvw fixed top-0 left-0 flex justify-center items-center bg-gray-700/70"
-        >
-          <div
-            onClick={(event) => event.stopPropagation()}
-            className="bg-gray-700 p-8 rounded shadow-lg top-10 fixed flex flex-col items-start justify-start gap-4"
+        <Modal>
+          <Form
+            title={"Add New Store"}
+            onSubmit={handleSubmit}
+            hasCloseButton={true}
+            closeFunction={() => setIsOpen(false)}
           >
-            <div className="flex items-center justify-between w-full">
-              <h2 className={"font-bold text-2xl w-full text-start"}>
-                Add Store
-              </h2>
-              <button
-                onClick={() => setIsOpen(!isOpen)}
-                className={"text-red-600 font-extrabold text-lg cursor-pointer"}
-              >
-                X
-              </button>
-            </div>
-            <form
-              className={"flex flex-col gap-8 items-start"}
-              onSubmit={handleSubmit}
-            >
-              <Input
-                label={"name"}
-                id={"name"}
-                type={"text"}
-                required={true}
-                min={3}
-                ref={storeNameRef}
-              />
+            <Input
+              label={"name"}
+              id={"name"}
+              type={"text"}
+              required={true}
+              min={3}
+              ref={storeNameRef}
+            />
 
-              <button
-                className={
-                  "bg-blue-500 hover:bg-blue-600 rounded p-4 cursor-pointer transition-all duration-300"
-                }
-              >
-                Add Store
-              </button>
-            </form>
-          </div>
-        </div>
+            <button
+              className={
+                "bg-blue-500 hover:bg-blue-600 rounded p-4 cursor-pointer transition-all duration-300"
+              }
+            >
+              Add Store
+            </button>
+          </Form>
+        </Modal>
       )}
     </>
   );
