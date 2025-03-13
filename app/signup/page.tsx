@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { NotificationActions } from "@/redux/slicers/notificationSlice";
 import { useDispatch } from "react-redux";
 import FormButton from "@/components/ui/formButton";
+import Form from "@/components/ui/form";
 
 const SignUp = () => {
   const usernameRef = useRef<HTMLInputElement>(null);
@@ -62,12 +63,8 @@ const SignUp = () => {
   }
 
   return (
-    <main className="w-full max-w-md flex flex-col items-center p-4 gap-4 bg-gray-700 rounded">
-      <h2 className={"font-bold text-2xl w-full text-start"}>Sign Up</h2>
-      <form
-        className={"w-full flex flex-col items-start gap-8"}
-        onSubmit={handleSubmit}
-      >
+    <main className="w-full max-w-md flex flex-col items-center">
+      <Form title={"Sign Up"} onSubmit={handleSubmit}>
         <Input
           label={"username"}
           placeholder={""}
@@ -94,7 +91,7 @@ const SignUp = () => {
           type={"submit"}
           onClick={(e) => handleSubmit(e)}
         />
-      </form>
+      </Form>
     </main>
   );
 };
