@@ -17,9 +17,9 @@ const DisplayStoresItem = ({ store, index }: Props) => {
         <p>{store.name}</p>
       </div>
       <div className={"flex gap-4 items-center"}>
-        <Button label={"Open"} color={"blue"} type={"button"} />
-        <Button label={"Edit"} color={"amber"} type={"button"} />
-        <Button label={"Delete"} color={"green"} type={"button"} />
+        <Button label={"Open"} color={"blue"} type={"button"} bold />
+        <Button label={"Edit"} color={"amber"} type={"button"} bold />
+        <Button label={"Delete"} color={"red"} type={"button"} bold />
       </div>
     </div>
   );
