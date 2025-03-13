@@ -1,8 +1,8 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import User from "@/types/IUser";
-import IUserSlice from "@/types/IUserSlice";
+import User from "@/types/User";
+import UserSlice from "@/types/UserSlice";
 
-const initialState: IUserSlice = {
+const initialState: UserSlice = {
   user: undefined,
   isLoggedIn: false,
 };

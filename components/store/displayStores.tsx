@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 import { StoreActions } from "@/redux/slicers/storeSlice";
 import DisplayStoresItem from "@/components/store/displayStoresItem";
+import { Store } from "@/types/Store";
 
 const DisplayStores = () => {
   const { user } = useSelector((state: RootState) => state.user);
@@ -11,8 +12,9 @@ const DisplayStores = () => {
 
   useEffect(() => {
     async function loadStores() {
+      if (!user) return null;
       try {
-        const response = await fetch(`/api/store?userID=${user!.userID}`, {
+        const response = await fetch(`/api/store?userID=${user.userID}`, {
           method: "GET",
         });
 
@@ -29,12 +31,16 @@ const DisplayStores = () => {
     }
 
     loadStores();
-  }, [dispatch, user]);
+  }, [user]);
 
   return (
     <main className={"w-full flex flex-col gap-4 justify-start items-center"}>
-      {stores.map((store, index) => (
-        <DisplayStoresItem store={store} index={index + 1} key={index} />
+      {stores.map((store: Store, index) => (
+        <DisplayStoresItem
+          store={store}
+          index={index + 1}
+          key={store.storeID}
+        />
       ))}
     </main>
   );
