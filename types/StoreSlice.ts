@@ -1,4 +1,4 @@
-import { Store } from "@/types/Store";
+import Store from "@/types/Store";
 
 export default interface StoreSlice {
   userStores: Store[];
