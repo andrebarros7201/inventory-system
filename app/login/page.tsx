@@ -5,7 +5,6 @@ import { useRouter } from "next/navigation";
 import { useDispatch } from "react-redux";
 import { NotificationActions } from "@/redux/slicers/notificationSlice";
 import { UserActions } from "@/redux/slicers/userSlice";
-import Button from "@/components/ui/button";
 import FormButton from "@/components/ui/formButton";
 
 const Login = () => {
