@@ -10,7 +10,7 @@ const Store = () => {
   return (
     <main
       className={
-        "w-full flex flex-col gap-4 p-4 lg:p-0 justify-start items-start"
+        "w-full flex flex-col gap-8 p-4 lg:px-0 justify-start items-start"
       }
     >
       <div className={"w-full flex gap-4 justify-start items-center"}>
