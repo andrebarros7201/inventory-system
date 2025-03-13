@@ -96,7 +96,7 @@ const Login = () => {
           label={"Log In"}
           color={"blue"}
           type={"submit"}
-          onClick={(e) => handleSubmit(e!)}
+          onClick={(e) => handleSubmit(e)}
         />
       </form>
     </main>
