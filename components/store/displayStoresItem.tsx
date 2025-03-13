@@ -1,6 +1,8 @@
 import Button from "@/components/ui/button";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { NotificationActions } from "@/redux/slicers/notificationSlice";
+import { fetchStores } from "@/redux/slicers/storeSlice";
+import { RootState } from "@/redux/store";
 
 type Props = {
   store: { storeID: string; name: string; userID: string };
@@ -8,9 +10,12 @@ type Props = {
 };
 
 const DisplayStoreItem = ({ store, index }: Props) => {
+  const { user } = useSelector((state: RootState) => state.user);
   const dispatch = useDispatch();
+
   async function handleDelete(id: string) {
     try {
+      if (!user) return;
       const response = await fetch(`/api/store?storeID=${id}`, {
         method: "DELETE",
       });
@@ -25,6 +30,7 @@ const DisplayStoreItem = ({ store, index }: Props) => {
           message: "Store deleted",
         }),
       );
+      dispatch(fetchStores(user.userID));
     } catch (error) {
       dispatch(
         NotificationActions.createNotification({
