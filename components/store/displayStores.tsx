@@ -2,9 +2,11 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 import { StoreActions } from "@/redux/slicers/storeSlice";
+import DisplayStoresItem from "@/components/store/displayStoresItem";
 
 const DisplayStores = () => {
   const { user } = useSelector((state: RootState) => state.user);
+  const { stores } = useSelector((state: RootState) => state.store);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -30,9 +32,11 @@ const DisplayStores = () => {
   }, [dispatch, user]);
 
   return (
-    <main
-      className={"w-full flex flex-col gap-4 justify-start items-center"}
-    ></main>
+    <main className={"w-full flex flex-col gap-4 justify-start items-center"}>
+      {stores.map((store, index) => (
+        <DisplayStoresItem store={store} index={index + 1} key={index} />
+      ))}
+    </main>
   );
 };
 
