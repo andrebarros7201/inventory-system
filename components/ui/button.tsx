@@ -3,7 +3,7 @@ type Props = {
   color: string;
   bold?: boolean;
   onClick?: () => void;
-  type: "submit" | "reset" | "button" | undefined;
+  type?: "submit" | "reset" | "button" | undefined;
 };
 
 const Button = ({
