@@ -11,7 +11,7 @@ const Form: React.FC<{
     <form
       onSubmit={onSubmit}
       className={
-        "w-full max-w-md flex flex-col gap-4 p-4 items-start justify-start bg-gray-700 "
+        "w-full max-w-md flex flex-col gap-4 p-4 items-start justify-start bg-gray-700 rounded"
       }
     >
       {hasCloseButton ? (
