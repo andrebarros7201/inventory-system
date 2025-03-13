@@ -66,7 +66,7 @@ const Login = () => {
   }
 
   return (
-    <main className="w-full max-w-md flex flex-col items-center p-4 gap-4 bg-gray-700 rounded">
+    <main className="w-full max-w-md flex flex-col items-center">
       <Form title={"Login"} onSubmit={(e: FormEvent) => handleSubmit(e)}>
         <Input
           label={"username"}
