@@ -1,20 +1,24 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import StoreSlice from "@/types/StoreSlice";
 
 const initialState: StoreSlice = {
-  stores: [],
+  userStores: [],
   loading: false,
   error: null,
 };
-
 export const fetchStores = createAsyncThunk(
   "store/fetchStores",
   async (userID: string) => {
-    const response = await fetch(`api/store?userID=${userID}`);
-    if (!response.ok) {
-      throw new Error("Failed to fetch stores.");
+    try {
+      const response = await fetch(`/api/store?userID=${userID}`);
+      if (!response.ok) {
+        throw new Error(`Failed to fetch stores. Status: ${response.status}`);
+      }
+      const data = await response.json();
+      return data.stores;
+    } catch (error) {
+      throw new Error(`Error fetching stores: ${(error as Error).message}`);
     }
-    return response.json();
   },
 );
 
@@ -23,10 +27,10 @@ const storeSlice = createSlice({
   initialState,
   reducers: {
     addStore: (state, action) => {
-      state.stores = action.payload;
+      state.userStores = action.payload;
     },
     clearStores: (state) => {
-      state.stores = [];
+      state.userStores = [];
     },
   },
   extraReducers: (builder) => {
@@ -35,8 +39,9 @@ const storeSlice = createSlice({
         state.loading = true;
       })
       .addCase(fetchStores.fulfilled, (state, action) => {
-        state.stores = action.payload;
+        state.userStores = action.payload;
         state.loading = false;
+        state.error = null;
       })
       .addCase(fetchStores.rejected, (state) => {
         state.loading = false;

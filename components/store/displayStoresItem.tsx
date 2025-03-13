@@ -7,7 +7,7 @@ type Props = {
   index: number;
 };
 
-const DisplayStoresItem = ({ store, index }: Props) => {
+const DisplayStoreItem = ({ store, index }: Props) => {
   const dispatch = useDispatch();
   async function handleDelete(id: string) {
     try {
@@ -59,4 +59,4 @@ const DisplayStoresItem = ({ store, index }: Props) => {
     </div>
   );
 };
-export default DisplayStoresItem;
+export default DisplayStoreItem;

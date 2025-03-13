@@ -1,46 +1,33 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "@/redux/store";
-import { StoreActions } from "@/redux/slicers/storeSlice";
-import DisplayStoresItem from "@/components/store/displayStoresItem";
-import { Store } from "@/types/Store";
+import { AppDispatch, RootState } from "@/redux/store";
+import DisplayStoreItem from "@/components/store/displayStoresItem";
+import Store from "@/types/Store";
 
 const DisplayStores = () => {
   const { user } = useSelector((state: RootState) => state.user);
-  const { stores } = useSelector((state: RootState) => state.store);
-  const dispatch = useDispatch();
+  const { userStores, loading, error } = useSelector(
+    (state: RootState) => state.store,
+  );
+  const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
-    async function loadStores() {
-      if (!user) return null;
-      try {
-        const response = await fetch(`/api/store?userID=${user.userID}`, {
-          method: "GET",
-        });
+    if (!user) return;
+    //dispatch(fetchStores(user.userID));
+  }, [user, dispatch]);
 
-        if (!response.ok) {
-          throw new Error("Error fetching stores");
-        }
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
-        const data = await response.json();
-        console.log(data.stores);
-        dispatch(StoreActions.addStore(data.stores));
-      } catch (error) {
-        console.error(error);
-      }
-    }
-
-    loadStores();
-  }, [user]);
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
 
   return (
     <main className={"w-full flex flex-col gap-4 justify-start items-center"}>
-      {stores.map((store: Store, index) => (
-        <DisplayStoresItem
-          store={store}
-          index={index + 1}
-          key={store.storeID}
-        />
+      {userStores.map((store: Store, index) => (
+        <DisplayStoreItem store={store} index={index + 1} key={store.storeID} />
       ))}
     </main>
   );

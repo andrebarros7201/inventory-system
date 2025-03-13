@@ -2,18 +2,22 @@
 import { FormEvent, useRef, useState } from "react";
 import Input from "@/components/ui/input";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "@/redux/store";
+import { AppDispatch, RootState } from "@/redux/store";
 import { NotificationActions } from "@/redux/slicers/notificationSlice";
+import { fetchStores } from "@/redux/slicers/storeSlice";
 import Button from "@/components/ui/button";
 
 const AddStore = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const storeNameRef = useRef<HTMLInputElement>(null);
   const { user } = useSelector((state: RootState) => state.user);
 
   async function handleSubmit(event: FormEvent) {
     event.preventDefault();
+    if (!user) {
+      return;
+    }
     try {
       const response = await fetch("/api/store", {
         method: "POST",
@@ -36,6 +40,7 @@ const AddStore = () => {
         }),
       );
       setIsOpen(false);
+      dispatch(fetchStores(user.userID));
     } catch (error) {
       console.error(error);
     }

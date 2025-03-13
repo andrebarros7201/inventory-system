@@ -1,13 +1,29 @@
 "use client";
 
-import { useSelector } from "react-redux";
-import { RootState } from "@/redux/store";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "@/redux/store";
 import AddStore from "@/components/store/addStore";
 import DisplayStores from "@/components/store/displayStores";
 import withAuth from "@/utils/withAuth";
+import { useEffect } from "react";
+import { fetchStores } from "@/redux/slicers/storeSlice";
 
 const Store = () => {
-  const { stores } = useSelector((state: RootState) => state.store);
+  const { user } = useSelector((state: RootState) => state.user);
+  const { userStores, loading } = useSelector(
+    (state: RootState) => state.store,
+  );
+  const dispatch = useDispatch<AppDispatch>();
+
+  useEffect(() => {
+    if (!user) return;
+    dispatch(fetchStores(user.userID));
+  }, [dispatch, user]);
+
+  if (loading) {
+    return <h2>Loading...</h2>;
+  }
+
   return (
     <main
       className={
@@ -16,11 +32,11 @@ const Store = () => {
     >
       <div className={"w-full flex gap-4 justify-start items-center"}>
         <h2 className={"font-bold text-3xl"}>
-          {stores.length === 0
+          {userStores.length === 0
             ? "No Stores"
-            : stores.length === 1
+            : userStores.length === 1
               ? "1 Store"
-              : `${stores.length} Stores`}
+              : `${userStores.length} Stores`}
         </h2>
         <AddStore />
       </div>

@@ -33,4 +33,4 @@ export const persistor = persistStore(store);
 
 export default store;
 export type RootState = ReturnType<typeof store.getState>;
-export type Dispatch = typeof store.dispatch;
+export type AppDispatch = typeof store.dispatch;
