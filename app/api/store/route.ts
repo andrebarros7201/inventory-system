@@ -29,7 +29,10 @@ export async function GET(req: NextRequest) {
       return NextResponse.json({ message: "Missing userID" }, { status: 400 });
     }
 
-    const stores = await prisma.store.findMany({ where: { userID } });
+    const stores = await prisma.store.findMany({
+      where: { userID },
+      orderBy: { createdAt: "asc" },
+    });
 
     return NextResponse.json({ stores }, { status: 200 });
   } catch (error) {
@@ -49,6 +52,29 @@ export async function DELETE(req: NextRequest) {
 
     await prisma.store.delete({ where: { storeID } });
     return NextResponse.json({ message: "Store deleted" }, { status: 200 });
+  } catch (error) {
+    return NextResponse.json(
+      { message: `Server error: ${error}` },
+      { status: 500 },
+    );
+  }
+}
+
+export async function PATCH(req: NextRequest) {
+  try {
+    const { name, storeID } = await req.json();
+    const store = await prisma.store.findUnique({ where: { storeID } });
+    if (!store) {
+      return NextResponse.json(
+        { message: "No store found with that storeID" },
+        { status: 404 },
+      );
+    }
+    await prisma.store.update({
+      where: { storeID: storeID },
+      data: { name: name },
+    });
+    return NextResponse.json({ message: "Store updated" }, { status: 200 });
   } catch (error) {
     return NextResponse.json(
       { message: `Server error: ${error}` },
