@@ -35,6 +35,7 @@ const AddStore = () => {
           message: data.message,
         }),
       );
+      setIsOpen(false);
     } catch (error) {
       console.error(error);
     }
