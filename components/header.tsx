@@ -30,7 +30,7 @@ const Header = () => {
           <Link href={"/"}>
             <h2 className={"font-bold text-2xl h-full"}>Inventory System</h2>
           </Link>
-          <ul className={"h-full flex items-center justify-start"}>
+          <ul className={"h-full flex items-center justify-start gap-4"}>
             {!isLoggedIn ? (
               <>
                 <li>
@@ -41,11 +41,16 @@ const Header = () => {
                 </li>
               </>
             ) : (
-              <li>
-                <button className={"cursor-pointer"} onClick={handleLogOut}>
-                  Log Out
-                </button>
-              </li>
+              <>
+                <li>
+                  <HeaderLink label={"Store"} path={"/store"} />
+                </li>
+                <li>
+                  <button className={"cursor-pointer"} onClick={handleLogOut}>
+                    Log Out
+                  </button>
+                </li>
+              </>
             )}
           </ul>
         </nav>
