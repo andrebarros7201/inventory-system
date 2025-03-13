@@ -4,7 +4,7 @@ type Props = {
   label: string;
   color: string;
   bold?: boolean;
-  onClick?: (e?: FormEvent) => void;
+  onClick: (e: FormEvent) => void;
   type: "submit" | "reset" | "button" | undefined;
 };
 
