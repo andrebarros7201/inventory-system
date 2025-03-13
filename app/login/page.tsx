@@ -5,6 +5,8 @@ import { useRouter } from "next/navigation";
 import { useDispatch } from "react-redux";
 import { NotificationActions } from "@/redux/slicers/notificationSlice";
 import { UserActions } from "@/redux/slicers/userSlice";
+import Button from "@/components/ui/button";
+import FormButton from "@/components/ui/formButton";
 
 const Login = () => {
   const usernameRef = useRef<HTMLInputElement>(null);
@@ -90,14 +92,12 @@ const Login = () => {
           min={3}
           ref={passwordRef}
         />
-        <button
+        <FormButton
+          label={"Log In"}
+          color={"blue"}
           type={"submit"}
-          className={
-            "bg-blue-500 py-2 px-4 font-bold rounded hover:bg-blue-600 cursor-pointer duration-300 transition-all"
-          }
-        >
-          Log In
-        </button>
+          onClick={(e) => handleSubmit(e!)}
+        />
       </form>
     </main>
   );
