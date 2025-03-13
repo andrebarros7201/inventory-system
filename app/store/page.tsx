@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 import AddStore from "@/components/store/addStore";
 import DisplayStores from "@/components/store/displayStores";
+import withAuth from "@/utils/withAuth";
 
 const Store = () => {
   const { stores } = useSelector((state: RootState) => state.store);
@@ -28,4 +29,4 @@ const Store = () => {
   );
 };
 
-export default Store;
+export default withAuth(Store);
