@@ -4,6 +4,7 @@ import Input from "@/components/ui/input";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 import { NotificationActions } from "@/redux/slicers/notificationSlice";
+import Button from "@/components/ui/button";
 
 const AddStore = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -40,12 +41,12 @@ const AddStore = () => {
   }
   return (
     <>
-      <button
-        className="p-2 bg-blue-500 rounded hover:bg-blue-600 cursor-pointer transition-all duration-300"
+      <Button
+        label={"Add New Store"}
+        color={"blue"}
         onClick={() => setIsOpen(!isOpen)}
-      >
-        Add New Store
-      </button>
+        bold={true}
+      />
 
       {isOpen && (
         <div
