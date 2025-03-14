@@ -2,66 +2,60 @@
 import { FormEvent, useRef } from "react";
 import Input from "@/components/ui/input";
 import { useRouter } from "next/navigation";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { NotificationActions } from "@/redux/slicers/notificationSlice";
 import { UserActions } from "@/redux/slicers/userSlice";
 import FormButton from "@/components/ui/formButton";
 import Form from "@/components/ui/form";
+import { RootState } from "@/redux/store";
+import axios from "axios";
 
 const Login = () => {
   const usernameRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
   const dispatch = useDispatch();
+  const { loading } = useSelector((state: RootState) => state.user);
 
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
+    if (loading) return;
+    dispatch(UserActions.setLoading(true));
     try {
-      const response = await fetch("/api/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          username: usernameRef.current!.value,
-          password: passwordRef.current!.value,
-        }),
+      const response = await axios.post("/api/auth/login", {
+        username: usernameRef.current!.value,
+        password: passwordRef.current!.value,
       });
 
-      const data = await response.json();
+      const { notification, user } = response.data;
 
-      if (!response.ok) {
-        throw new Error(data.message);
-      }
+      // Save user info
       dispatch(
-        UserActions.logIn({
-          userID: data.user.userID,
-          username: data.user.username,
-        }),
+        UserActions.logIn({ userID: user.userID, username: user.username }),
       );
+
+      // Create notification
       dispatch(
         NotificationActions.createNotification({
-          type: "success",
-          message: "Logged In",
+          type: notification.type,
+          message: notification.message,
         }),
       );
       router.push("/store");
     } catch (error) {
-      if (error instanceof Error) {
-        dispatch(
-          NotificationActions.createNotification({
-            type: "error",
-            message: error.message,
-          }),
-        );
-      } else {
-        dispatch(
-          NotificationActions.createNotification({
-            type: "error",
-            message: "An unknown error occurred",
-          }),
-        );
-      }
+      // @ts-ignore
+      const notification = error.response?.data?.notification || {
+        type: "error",
+        message: "Server Error3",
+      };
+      dispatch(
+        NotificationActions.createNotification({
+          type: notification.type,
+          message: notification.message,
+        }),
+      );
+    } finally {
+      dispatch(UserActions.setLoading(false));
     }
   }
 
@@ -89,7 +83,7 @@ const Login = () => {
           ref={passwordRef}
         />
         <FormButton
-          label={"Log In"}
+          label={loading ? "Logging in..." : "Log In"}
           color={"blue"}
           type={"submit"}
           onClick={(e) => handleSubmit(e)}
