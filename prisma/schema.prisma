@@ -36,6 +36,7 @@ model Product {
   productID String   @id @default(uuid())
   name      String
   quantity  Float
+  price     Float
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   storeID   String
