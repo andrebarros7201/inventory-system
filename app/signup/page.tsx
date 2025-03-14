@@ -18,36 +18,47 @@ const SignUp = () => {
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
     if (loading) return;
-
-    try {
-      const response = await axios.post("api/auth/register", {
-        username: usernameRef.current!.value,
-        password: passwordRef.current!.value,
-      });
-
-      const { notification } = response.data;
+    if (
+      usernameRef.current?.value === "" ||
+      passwordRef.current?.value === ""
+    ) {
       dispatch(
         NotificationActions.createNotification({
-          type: notification.type,
-          message: notification.message,
+          type: "error",
+          message: "Username and password are required",
         }),
       );
-      router.push("/login");
-    } catch (error) {
-      // @ts-ignore
-      const notification = error.response?.data?.notification || {
-        type: "error",
-        message: "Server error",
-      };
+    } else {
+      try {
+        const response = await axios.post("api/auth/register", {
+          username: usernameRef.current!.value,
+          password: passwordRef.current!.value,
+        });
 
-      dispatch(
-        NotificationActions.createNotification({
-          type: notification.type,
-          message: notification.message,
-        }),
-      );
-    } finally {
-      setLoading(false);
+        const { notification } = response.data;
+        dispatch(
+          NotificationActions.createNotification({
+            type: notification.type,
+            message: notification.message,
+          }),
+        );
+        router.push("/login");
+      } catch (error) {
+        // @ts-ignore
+        const notification = error.response?.data?.notification || {
+          type: "error",
+          message: "Server error",
+        };
+
+        dispatch(
+          NotificationActions.createNotification({
+            type: notification.type,
+            message: notification.message,
+          }),
+        );
+      } finally {
+        setLoading(false);
+      }
     }
   }
 

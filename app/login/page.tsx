@@ -20,41 +20,54 @@ const Login = () => {
     e.preventDefault();
     if (loading) return;
     setLoading(true);
-    try {
-      const response = await axios.post("/api/auth/login", {
-        username: usernameRef.current!.value,
-        password: passwordRef.current!.value,
-      });
 
-      const { notification, user } = response.data;
-
-      // Save user info
-      dispatch(
-        UserActions.logIn({ userID: user.userID, username: user.username }),
-      );
-
-      // Create notification
+    if (
+      usernameRef.current?.value === "" ||
+      passwordRef.current?.value === ""
+    ) {
       dispatch(
         NotificationActions.createNotification({
-          type: notification.type,
-          message: notification.message,
+          type: "error",
+          message: "Username and password are required",
         }),
       );
-      router.push("/store");
-    } catch (error) {
-      // @ts-ignore
-      const notification = error.response?.data?.notification || {
-        type: "error",
-        message: "Server Error3",
-      };
-      dispatch(
-        NotificationActions.createNotification({
-          type: notification.type,
-          message: notification.message,
-        }),
-      );
-    } finally {
-      setLoading(false);
+    } else {
+      try {
+        const response = await axios.post("/api/auth/login", {
+          username: usernameRef.current!.value,
+          password: passwordRef.current!.value,
+        });
+
+        const { notification, user } = response.data;
+
+        // Save user info
+        dispatch(
+          UserActions.logIn({ userID: user.userID, username: user.username }),
+        );
+
+        // Create notification
+        dispatch(
+          NotificationActions.createNotification({
+            type: notification.type,
+            message: notification.message,
+          }),
+        );
+        router.push("/store");
+      } catch (error) {
+        // @ts-ignore
+        const notification = error.response?.data?.notification || {
+          type: "error",
+          message: "Server Error3",
+        };
+        dispatch(
+          NotificationActions.createNotification({
+            type: notification.type,
+            message: notification.message,
+          }),
+        );
+      } finally {
+        setLoading(false);
+      }
     }
   }
 
