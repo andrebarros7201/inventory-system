@@ -58,6 +58,9 @@ const SignUp = () => {
         );
       } finally {
         setLoading(false);
+        setTimeout(() => {
+          dispatch(NotificationActions.toggleVisible());
+        }, 5000);
       }
     }
   }
