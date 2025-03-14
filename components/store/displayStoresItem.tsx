@@ -97,7 +97,14 @@ const DisplayStoreItem = ({ store, index }: Props) => {
         <p>{store.name}</p>
       </div>
       <div className={"flex gap-4 items-center"}>
-        <Button label={"Open"} color={"blue"} type={"button"} bold />
+        <Button
+          label={"Open"}
+          color={"blue"}
+          type={"button"}
+          bold
+          link={true}
+          linkPath={"/store/products"}
+        />
         <Button
           label={"Edit"}
           color={"amber"}

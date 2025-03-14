@@ -1,6 +1,9 @@
 import clsx from "clsx";
+import Link from "next/link";
 
 type Props = {
+  link?: boolean;
+  linkPath?: string;
   label: string;
   color: "red" | "green" | "blue" | "amber";
   bold?: boolean;
@@ -9,6 +12,8 @@ type Props = {
 };
 
 const Button = ({
+  link = false,
+  linkPath = "",
   label,
   color,
   bold = false,
@@ -30,7 +35,7 @@ const Button = ({
         },
       )}
     >
-      {label}
+      {!link ? label : <Link href={linkPath}>{label}</Link>}
     </button>
   );
 };
