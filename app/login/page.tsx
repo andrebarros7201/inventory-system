@@ -1,13 +1,12 @@
 "use client";
-import { FormEvent, useRef } from "react";
+import { FormEvent, useRef, useState } from "react";
 import Input from "@/components/ui/input";
 import { useRouter } from "next/navigation";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { NotificationActions } from "@/redux/slicers/notificationSlice";
 import { UserActions } from "@/redux/slicers/userSlice";
 import FormButton from "@/components/ui/formButton";
 import Form from "@/components/ui/form";
-import { RootState } from "@/redux/store";
 import axios from "axios";
 
 const Login = () => {
@@ -15,12 +14,12 @@ const Login = () => {
   const passwordRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
   const dispatch = useDispatch();
-  const { loading } = useSelector((state: RootState) => state.user);
+  const [loading, setLoading] = useState(false);
 
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
     if (loading) return;
-    dispatch(UserActions.setLoading(true));
+    setLoading(true);
     try {
       const response = await axios.post("/api/auth/login", {
         username: usernameRef.current!.value,
@@ -55,7 +54,7 @@ const Login = () => {
         }),
       );
     } finally {
-      dispatch(UserActions.setLoading(false));
+      setLoading(false);
     }
   }
 

@@ -5,7 +5,6 @@ import UserSlice from "@/types/UserSlice";
 const initialState: UserSlice = {
   user: undefined,
   isLoggedIn: false,
-  loading: false,
 };
 
 const userSlice = createSlice({
@@ -15,14 +14,10 @@ const userSlice = createSlice({
     logIn(state, action: PayloadAction<User>) {
       state.isLoggedIn = true;
       state.user = action.payload;
-      state.loading = false;
     },
     logOut(state) {
       state.isLoggedIn = false;
       state.user = undefined;
-    },
-    setLoading(state, action: PayloadAction<boolean>) {
-      state.loading = action.payload;
     },
   },
 });
