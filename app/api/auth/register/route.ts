@@ -9,7 +9,7 @@ export async function POST(req: Request) {
     const user = await prisma.user.findUnique({ where: { username } });
     if (user) {
       return NextResponse.json(
-        { message: "User already exists" },
+        { notification: { type: "error", message: "User already exists" } },
         { status: 409 },
       );
     }
@@ -20,7 +20,9 @@ export async function POST(req: Request) {
     });
 
     return NextResponse.json(
-      { message: "User created successfully" },
+      {
+        notification: { type: "success", message: "User created successfully" },
+      },
       { status: 201 },
     );
   } catch (error) {
