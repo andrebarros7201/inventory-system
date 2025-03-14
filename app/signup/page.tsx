@@ -1,64 +1,53 @@
 "use client";
-import { FormEvent, useRef } from "react";
+import { FormEvent, useRef, useState } from "react";
 import Input from "@/components/ui/input";
 import { useRouter } from "next/navigation";
 import { NotificationActions } from "@/redux/slicers/notificationSlice";
 import { useDispatch } from "react-redux";
 import FormButton from "@/components/ui/formButton";
 import Form from "@/components/ui/form";
+import axios from "axios";
 
 const SignUp = () => {
   const usernameRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
   const dispatch = useDispatch();
+  const [loading, setLoading] = useState(false);
 
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
-    if (usernameRef.current!.value && passwordRef.current!.value) {
-      try {
-        const response = await fetch("/api/auth/register", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            username: usernameRef.current!.value,
-            password: passwordRef.current!.value,
-          }),
-        });
+    if (loading) return;
 
-        const data = await response.json();
+    try {
+      const response = await axios.post("api/auth/register", {
+        username: usernameRef.current!.value,
+        password: passwordRef.current!.value,
+      });
 
-        if (!response.ok) {
-          throw new Error(data.message);
-        }
+      const { notification } = response.data;
+      dispatch(
+        NotificationActions.createNotification({
+          type: notification.type,
+          message: notification.message,
+        }),
+      );
+      router.push("/login");
+    } catch (error) {
+      // @ts-ignore
+      const notification = error.response?.data?.notification || {
+        type: "error",
+        message: "Server error",
+      };
 
-        //Redirect the user to the login page
-        router.push("/login");
-        dispatch(
-          NotificationActions.createNotification({
-            type: "success",
-            message: "Account Created Successfully",
-          }),
-        );
-      } catch (error) {
-        if (error instanceof Error) {
-          dispatch(
-            NotificationActions.createNotification({
-              type: "error",
-              message: error.message,
-            }),
-          );
-        } else {
-          dispatch(
-            NotificationActions.createNotification({
-              type: "error",
-              message: "An unknown error occurred",
-            }),
-          );
-        }
-      }
+      dispatch(
+        NotificationActions.createNotification({
+          type: notification.type,
+          message: notification.message,
+        }),
+      );
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -67,7 +56,6 @@ const SignUp = () => {
       <Form title={"Sign Up"} onSubmit={handleSubmit}>
         <Input
           label={"username"}
-          placeholder={""}
           id={"username"}
           type={"text"}
           required={true}
@@ -77,7 +65,6 @@ const SignUp = () => {
         />
         <Input
           label={"password"}
-          placeholder={""}
           id={"password"}
           type={"password"}
           required={true}
@@ -86,7 +73,7 @@ const SignUp = () => {
           ref={passwordRef}
         />
         <FormButton
-          label={"Sign Up"}
+          label={loading ? "Signing in..." : "Sign up"}
           color={"blue"}
           type={"submit"}
           onClick={(e) => handleSubmit(e)}
