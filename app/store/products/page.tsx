@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/redux/store";
 import { useEffect } from "react";
 import { fetchProducts } from "@/redux/slicers/productSlice";
+import AddProduct from "@/components/product/addProduct";
 
 const Products = () => {
   const { chosenStore } = useSelector((state: RootState) => state.store);
@@ -19,6 +20,7 @@ const Products = () => {
     >
       <div className={"w-full flex justify-start items-center gap-4 "}>
         <h2 className={"font-bold text-3xl"}>Products</h2>
+        <AddProduct />
       </div>
     </main>
   );
