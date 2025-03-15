@@ -1,11 +1,13 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import StoreSlice from "@/types/StoreSlice";
 
 const initialState: StoreSlice = {
   userStores: [],
   loading: false,
   error: null,
+  chosenStore: null,
 };
+
 export const fetchStores = createAsyncThunk(
   "store/fetchStores",
   async (userID: string) => {
@@ -31,6 +33,9 @@ const storeSlice = createSlice({
     },
     clearStores: (state) => {
       state.userStores = [];
+    },
+    setChosenStore: (state, action: PayloadAction<string>) => {
+      state.chosenStore = action.payload;
     },
   },
   extraReducers: (builder) => {

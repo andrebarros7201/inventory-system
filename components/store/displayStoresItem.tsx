@@ -1,7 +1,7 @@
 import Button from "@/components/ui/button";
 import { useDispatch, useSelector } from "react-redux";
 import { NotificationActions } from "@/redux/slicers/notificationSlice";
-import { fetchStores } from "@/redux/slicers/storeSlice";
+import { fetchStores, StoreActions } from "@/redux/slicers/storeSlice";
 import { AppDispatch, RootState } from "@/redux/store";
 import { FormEvent, useRef, useState } from "react";
 import Input from "@/components/ui/input";
@@ -86,6 +86,10 @@ const DisplayStoreItem = ({ store, index }: Props) => {
     }
   }
 
+  function handleSetOpenedStore() {
+    dispatch(StoreActions.setChosenStore(store.storeID));
+  }
+
   return (
     <div
       className={
@@ -104,6 +108,7 @@ const DisplayStoreItem = ({ store, index }: Props) => {
           bold
           link={true}
           linkPath={"/store/products"}
+          onClick={handleSetOpenedStore}
         />
         <Button
           label={"Edit"}
