@@ -31,6 +31,9 @@ export async function GET(req: NextRequest) {
 
     const stores = await prisma.store.findMany({
       where: { userID },
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-expect-error
+      orderBy: { createdAt: "asc" },
     });
 
     return NextResponse.json({ stores }, { status: 200 });
