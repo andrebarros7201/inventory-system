@@ -5,6 +5,7 @@ import { AppDispatch, RootState } from "@/redux/store";
 import { useEffect } from "react";
 import { fetchProducts } from "@/redux/slicers/productSlice";
 import AddProduct from "@/components/product/addProduct";
+import DisplayProducts from "@/components/product/displayProducts";
 
 const Products = () => {
   const { chosenStore } = useSelector((state: RootState) => state.store);
@@ -22,6 +23,7 @@ const Products = () => {
         <h2 className={"font-bold text-3xl"}>Products</h2>
         <AddProduct />
       </div>
+      <DisplayProducts />
     </main>
   );
 };

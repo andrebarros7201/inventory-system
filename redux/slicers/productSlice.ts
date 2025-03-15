@@ -10,7 +10,7 @@ export const fetchProducts = createAsyncThunk(
   "product/fetchProducts",
   async (storeID: string) => {
     try {
-      const response = await axios.get(`/api/store?storeID=${storeID}`);
+      const response = await axios.get(`/api/product?storeID=${storeID}`);
       return response.data.products;
     } catch (error) {
       throw new Error(`Error fetching stores: ${(error as Error).message}`);
