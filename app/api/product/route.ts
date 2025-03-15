@@ -62,3 +62,23 @@ export async function POST(req: Request) {
     );
   }
 }
+
+export async function DELETE(req: NextRequest) {
+  try {
+    const productID = req.nextUrl.searchParams.get("productID");
+    if (!productID) {
+      return NextResponse.json(
+        { message: "Product not found" },
+        { status: 404 },
+      );
+    }
+
+    await prisma.product.delete({ where: { productID } });
+    return NextResponse.json({ message: "Product deleted" }, { status: 200 });
+  } catch (error) {
+    return NextResponse.json(
+      { message: `Server error: ${error}` },
+      { status: 500 },
+    );
+  }
+}

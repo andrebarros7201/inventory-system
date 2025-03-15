@@ -7,6 +7,8 @@ import Input from "@/components/ui/input";
 import Form from "@/components/ui/form";
 import Modal from "@/components/ui/modal";
 import Product from "@/types/Product";
+import axios from "axios";
+import { fetchProducts } from "@/redux/slicers/productSlice";
 
 type Props = {
   item: Product;
@@ -14,13 +16,32 @@ type Props = {
 };
 
 const DisplayStoreItem = ({ item, index }: Props) => {
+  const { chosenStore } = useSelector((state: RootState) => state.store);
   const [isEditing, setIsEditing] = useState(false);
   const newProductNameRef = useRef<HTMLInputElement>(null);
   const newProductPriceRef = useRef<HTMLInputElement>(null);
   const newProductQuantityRef = useRef<HTMLInputElement>(null);
   const dispatch = useDispatch<AppDispatch>();
 
-  function handleDelete(id: string) {}
+  async function handleDelete(id: string) {
+    if (!id) return;
+
+    try {
+      const response = await axios.delete(`/api/product?productID=${id}`);
+
+      const { notification } = response.data;
+
+      dispatch(
+        NotificationActions.createNotification({
+          type: notification.type,
+          message: notification.message,
+        }),
+      );
+      dispatch(fetchProducts(chosenStore!));
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   return (
     <div

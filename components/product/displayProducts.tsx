@@ -1,17 +1,13 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/redux/store";
-import DisplayStoreItem from "@/components/store/displayStoresItem";
-import Store from "@/types/Store";
 import { fetchProducts } from "@/redux/slicers/productSlice";
 import DisplayProductsItem from "@/components/product/displayProductsItem";
 import Product from "@/types/Product";
 
 const DisplayStores = () => {
   const { chosenStore } = useSelector((state: RootState) => state.store);
-  const { products, loading } = useSelector(
-    (state: RootState) => state.product,
-  );
+  const { products } = useSelector((state: RootState) => state.product);
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
