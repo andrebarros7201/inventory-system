@@ -4,5 +4,5 @@ export default interface StoreSlice {
   userStores: Store[];
   loading: boolean;
   error: null | string;
-  chosenStore: string | null;
+  chosenStore: string | undefined;
 }

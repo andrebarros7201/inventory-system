@@ -5,7 +5,7 @@ const initialState: StoreSlice = {
   userStores: [],
   loading: false,
   error: null,
-  chosenStore: null,
+  chosenStore: undefined,
 };
 
 export const fetchStores = createAsyncThunk(
