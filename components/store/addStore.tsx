@@ -8,6 +8,7 @@ import { fetchStores } from "@/redux/slicers/storeSlice";
 import Button from "@/components/ui/button";
 import Modal from "@/components/ui/modal";
 import Form from "@/components/ui/form";
+import FormButton from "@/components/ui/formButton";
 
 const AddStore = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -73,13 +74,13 @@ const AddStore = () => {
               ref={storeNameRef}
             />
 
-            <button
-              className={
-                "bg-blue-500 hover:bg-blue-600 rounded p-4 cursor-pointer transition-all duration-300"
-              }
-            >
-              Add Store
-            </button>
+            <FormButton
+              label={"Create Store"}
+              color={"blue"}
+              onClick={handleSubmit}
+              type={"submit"}
+              bold={true}
+            />
           </Form>
         </Modal>
       )}
