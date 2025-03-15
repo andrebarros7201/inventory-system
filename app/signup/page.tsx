@@ -44,7 +44,8 @@ const SignUp = () => {
         );
         router.push("/login");
       } catch (error) {
-        // @ts-ignore
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-expect-error
         const notification = error.response?.data?.notification || {
           type: "error",
           message: "Server error",

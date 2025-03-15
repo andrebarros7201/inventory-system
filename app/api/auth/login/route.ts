@@ -39,6 +39,7 @@ export async function POST(req: Request) {
 
       { status: 200 },
     );
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (error) {
     return NextResponse.json(
       { notification: { type: "error", message: "Server error2" } },

@@ -31,8 +31,6 @@ export async function GET(req: NextRequest) {
 
     const stores = await prisma.store.findMany({
       where: { userID },
-      // @ts-ignore
-      orderBy: { createdAt: "asc" },
     });
 
     return NextResponse.json({ stores }, { status: 200 });
