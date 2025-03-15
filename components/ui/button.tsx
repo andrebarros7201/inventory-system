@@ -25,7 +25,7 @@ const Button = ({
       type={type}
       onClick={onClick}
       className={clsx(
-        "px-4 py-2 rounded transition duration-300 cursor-pointer",
+        `${!link ? "px-4 py-2" : ""} rounded transition duration-300 cursor-pointer`,
         {
           "font-bold": bold,
           "bg-red-500 hover:bg-red-600": color === "red",
@@ -38,7 +38,7 @@ const Button = ({
       {!link ? (
         label
       ) : (
-        <Link className={"w-full h-full"} href={linkPath}>
+        <Link className={!link ? "" : "px-4 py-2 inline-block"} href={linkPath}>
           {label}
         </Link>
       )}
