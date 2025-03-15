@@ -4,6 +4,6 @@ export default interface Product {
   quantity: number;
   price: number;
   storeID: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt: Date;
+  updatedAt: Date;
 }
