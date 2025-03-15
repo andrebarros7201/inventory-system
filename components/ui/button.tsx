@@ -35,7 +35,13 @@ const Button = ({
         },
       )}
     >
-      {!link ? label : <Link href={linkPath}>{label}</Link>}
+      {!link ? (
+        label
+      ) : (
+        <Link className={"w-full h-full"} href={linkPath}>
+          {label}
+        </Link>
+      )}
     </button>
   );
 };
