@@ -3,4 +3,7 @@ export default interface Product {
   name: string;
   quantity: number;
   price: number;
+  storeID: string;
+  createdAt: string;
+  updatedAt: string;
 }
