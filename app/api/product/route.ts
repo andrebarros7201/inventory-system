@@ -27,11 +27,10 @@ export async function GET(req: NextRequest) {
 }
 
 export async function POST(req: Request) {
-  const newPrisma = regeneratePrismaConnection();
   const { storeID, name, price, quantity } = await req.json();
 
   try {
-    const store = await newPrisma.store.findUnique({ where: { storeID } });
+    const store = await prisma.store.findUnique({ where: { storeID } });
 
     if (!store) {
       return NextResponse.json(
@@ -39,7 +38,8 @@ export async function POST(req: Request) {
         { status: 404 },
       );
     }
-    const product = await newPrisma.product.create({
+
+    const product = await prisma.product.create({
       data: { storeID: storeID, name: name, price: price, quantity: quantity },
     });
 
