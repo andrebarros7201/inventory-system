@@ -93,10 +93,10 @@ const DisplayStoreItem = ({ store, index }: Props) => {
   return (
     <div
       className={
-        "w-full flex gap-4 justify-between items-center bg-gray-700 px-4 py-2 rounded"
+        "w-full flex flex-col gap-4 justify-between items-center bg-gray-700 px-4 py-2 rounded sm:flex-row"
       }
     >
-      <div className="flex gap-4 justify-start items-center">
+      <div className="flex gap-4 justify-start items-center py-4">
         <p>{index}</p>
         <p>{store.name}</p>
       </div>
