@@ -19,7 +19,11 @@ const Products = () => {
         "w-full flex flex-col items-start justify-start gap-8 p-4 lg:px-0 "
       }
     >
-      <div className={"w-full flex justify-start items-center gap-4 "}>
+      <div
+        className={
+          "w-full flex flex-col justify-start items-start gap-4 sm:flex-row sm:items-center"
+        }
+      >
         <h2 className={"font-bold text-3xl"}>Products</h2>
         <AddProduct />
       </div>
