@@ -85,3 +85,34 @@ export async function DELETE(req: NextRequest) {
     );
   }
 }
+
+export async function PATCH(req: NextRequest) {
+  try {
+    const { productID, name, price, quantity } = await req.json();
+    const product = await prisma.product.findUnique({ where: { productID } });
+    if (!product) {
+      return NextResponse.json(
+        { notification: { type: "error", message: "Product not found" } },
+        { status: 404 },
+      );
+    }
+
+    await prisma.product.update({
+      where: { productID: productID },
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-expect-error
+      data: { name: name, price: Number(price), quantity: Number(quantity) },
+    });
+
+    return NextResponse.json(
+      { notification: { type: "success", message: "Product updated" } },
+      { status: 200 },
+    );
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  } catch (e) {
+    return NextResponse.json(
+      { notification: { type: "error", message: "Server Error2" } },
+      { status: 500 },
+    );
+  }
+}

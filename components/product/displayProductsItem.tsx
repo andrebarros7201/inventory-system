@@ -45,6 +45,76 @@ const DisplayStoreItem = ({ item, index }: Props) => {
     }
   }
 
+  async function handleUpdate(event: FormEvent) {
+    event.preventDefault();
+    if (!chosenStore) return;
+
+    if (
+      !newProductNameRef.current?.value ||
+      !newProductPriceRef.current?.value ||
+      !newProductQuantityRef.current?.value
+    ) {
+      dispatch(
+        NotificationActions.createNotification({
+          type: "error",
+          message: "Please fill out the field",
+        }),
+      );
+    }
+
+    try {
+      /*
+      const response = await axios.patch(`/api/product/`, {
+        productID: item.productID,
+        name: newProductNameRef.current!.value,
+        price: newProductPriceRef.current!.value,
+        quantity: newProductQuantityRef.current!.value,
+      });
+
+      const { notification } = response.data;
+      dispatch(
+        NotificationActions.createNotification({
+          type: notification.type,
+          message: notification.message,
+        }),
+      );*/
+
+      const response = await fetch(`/api/product`, {
+        method: "PATCH",
+        headers: {
+          contentType: "application/json",
+        },
+        body: JSON.stringify({
+          productID: item.productID,
+          name: newProductNameRef.current!.value,
+          price: newProductPriceRef.current!.value,
+          quantity: newProductQuantityRef.current!.value,
+        }),
+      });
+
+      const data = await response.json();
+      const { notification } = data;
+      dispatch(
+        NotificationActions.createNotification({
+          type: notification.type,
+          message: notification.message,
+        }),
+      );
+      dispatch(fetchProducts(chosenStore));
+      setIsEditing(false);
+    } catch (e) {
+      console.log(e);
+      dispatch(
+        NotificationActions.createNotification({
+          type: "error",
+          message: "Failed to update product",
+        }),
+      );
+    } finally {
+      setTimeout(() => dispatch(NotificationActions.toggleVisible()), 5000);
+    }
+  }
+
   return (
     <div
       className={
@@ -71,11 +141,11 @@ const DisplayStoreItem = ({ item, index }: Props) => {
           bold
         />
       </div>
-      {/*isEditing && (
+      {isEditing && (
         <Modal>
           <Form
-            title={"Edit Store"}
-            onSubmit={handleUpdate}
+            title={"Edit Product"}
+            onSubmit={(e) => handleUpdate(e)}
             hasCloseButton={true}
             closeFunction={() => setIsEditing(false)}
           >
@@ -85,7 +155,25 @@ const DisplayStoreItem = ({ item, index }: Props) => {
               type={"text"}
               required={true}
               min={3}
-              ref={newStoreNameRef}
+              ref={newProductNameRef}
+            />
+
+            <Input
+              label={"price"}
+              id={"price"}
+              type={"number"}
+              required={true}
+              min={1}
+              ref={newProductPriceRef}
+            />
+
+            <Input
+              label={"quantity"}
+              id={"quantity"}
+              type={"number"}
+              required={true}
+              min={1}
+              ref={newProductQuantityRef}
             />
 
             <button
@@ -93,11 +181,11 @@ const DisplayStoreItem = ({ item, index }: Props) => {
                 "bg-blue-500 hover:bg-blue-600 rounded p-4 cursor-pointer transition-all duration-300"
               }
             >
-              Update Store
+              Update Product
             </button>
           </Form>
         </Modal>
-      )*/}
+      )}
     </div>
   );
 };
