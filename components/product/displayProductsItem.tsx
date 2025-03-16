@@ -40,6 +40,8 @@ const DisplayStoreItem = ({ item, index }: Props) => {
       dispatch(fetchProducts(chosenStore!));
     } catch (error) {
       console.log(error);
+    } finally {
+      setTimeout(() => dispatch(NotificationActions.toggleVisible()), 5000);
     }
   }
 
