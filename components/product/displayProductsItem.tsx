@@ -63,7 +63,6 @@ const DisplayStoreItem = ({ item, index }: Props) => {
     }
 
     try {
-      /*
       const response = await axios.patch(`/api/product/`, {
         productID: item.productID,
         name: newProductNameRef.current!.value,
@@ -72,28 +71,6 @@ const DisplayStoreItem = ({ item, index }: Props) => {
       });
 
       const { notification } = response.data;
-      dispatch(
-        NotificationActions.createNotification({
-          type: notification.type,
-          message: notification.message,
-        }),
-      );*/
-
-      const response = await fetch(`/api/product`, {
-        method: "PATCH",
-        headers: {
-          contentType: "application/json",
-        },
-        body: JSON.stringify({
-          productID: item.productID,
-          name: newProductNameRef.current!.value,
-          price: newProductPriceRef.current!.value,
-          quantity: newProductQuantityRef.current!.value,
-        }),
-      });
-
-      const data = await response.json();
-      const { notification } = data;
       dispatch(
         NotificationActions.createNotification({
           type: notification.type,
