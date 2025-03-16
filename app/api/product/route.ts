@@ -74,7 +74,10 @@ export async function DELETE(req: NextRequest) {
     }
 
     await prisma.product.delete({ where: { productID } });
-    return NextResponse.json({ message: "Product deleted" }, { status: 200 });
+    return NextResponse.json(
+      { notification: { type: "success", message: "Product deleted" } },
+      { status: 200 },
+    );
   } catch (error) {
     return NextResponse.json(
       { message: `Server error: ${error}` },
