@@ -17,7 +17,7 @@ const Notification = () => {
   return (
     isVisible && (
       <div
-        className={`${type === "success" ? "bg-green-600" : type === "error" ? "bg-red-600" : ""} text-xl text-white flex items-center rounded p-4 fixed top-6 gap-8 shadow-black shadow-2xl`}
+        className={`${type === "success" ? "bg-green-600" : type === "error" ? "bg-red-600" : ""} text-xl text-white flex items-center rounded p-4 fixed top-6 gap-8 shadow-black shadow-2xl z-20`}
       >
         <p className={"font-bold"}>{message}</p>
         <button className={"cursor-pointer"} onClick={handleClose}>
