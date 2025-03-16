@@ -30,7 +30,11 @@ const Store = () => {
         "w-full flex flex-col gap-8 p-4 lg:px-0 justify-start items-start"
       }
     >
-      <div className={"w-full flex gap-4 justify-start items-center"}>
+      <div
+        className={
+          "w-full flex flex-col gap-4 justify-start items-start sm:flex-row sm:items-center"
+        }
+      >
         <h2 className={"font-bold text-3xl"}>
           {userStores.length === 0
             ? "No Stores"
