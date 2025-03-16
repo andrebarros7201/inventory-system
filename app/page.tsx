@@ -4,7 +4,7 @@ export default function Home() {
   return (
     <main
       className={
-        "flex-1 w-full border-2 border-red-500 flex flex-col items-center justify-start gap-6 py-6"
+        "flex-1 w-full flex flex-col items-center justify-start gap-6 py-6"
       }
     >
       <header className={"w-full flex items-center justify-center"}>
@@ -17,7 +17,6 @@ export default function Home() {
           image={"/store.svg"}
           imageAlt={"image of a store"}
           buttonText={"Start Now"}
-          buttonLink={"/register"}
         />
         <HomeCard
           title={"Manage Stores Item"}
@@ -25,7 +24,6 @@ export default function Home() {
           image={"/fruit-pear.svg"}
           imageAlt={"image of a pear"}
           buttonText={"Start Now"}
-          buttonLink={"/register"}
         />
       </div>
     </main>
