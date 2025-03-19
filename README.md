@@ -41,7 +41,7 @@ Ensure you have the following installed:
 
 Clone the repository:
 
-    git clone https://github.com/your-username/inventory-system.git
+    git clone https://github.com/andrebarros7201/inventory-system.git
     cd inventory-system
 
 Install dependencies:
